@@ -18,12 +18,17 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
       - name: Build step
-        run: undefined # 📝 Update the build command(s)
+        run: npm install && npm run build # 📝 Update the build command(s)
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "cute-owl-47"
-          entrypoint: "undefined" # 📝 Update the entrypoint
-          root: "undefined"
+          project: "small-newt-51"
+          entrypoint: "mod.ts" # 📝 Update the entrypoint
+          root: "build"
