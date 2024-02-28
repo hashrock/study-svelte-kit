@@ -10,6 +10,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     env: { DEPLOY_API_ENDPOINT: "https://deno-local.com" }
+
     permissions:
       id-token: write # Needed for auth with Deno Deploy
       contents: read # Needed to clone the repository
@@ -18,17 +19,25 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
+      - name: Install Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: lts/*
 
+      - name: Install step
+        run: "npm install" # 📝 Update the install command(s) if necessary
+
       - name: Build step
-        run: npm install && npm run build # 📝 Update the build command(s)
+        run: "npm run build" # 📝 Update the build command(s) if necessary
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "small-newt-51"
-          entrypoint: "mod.ts" # 📝 Update the entrypoint
-          root: "build"
+          project: "hashrock-study-svelt-30"
+          entrypoint: "index.js" # 📝 Update the entrypoint if necessary
+          root: "build" # 📝 Update the root if necessary
